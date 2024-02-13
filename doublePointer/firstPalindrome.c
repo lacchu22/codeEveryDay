@@ -1,52 +1,84 @@
+/*
+******************************************************************************
+  * @file           : firstPalindrome.c
+  * @creator        : Lakshmi Narayanan S
+******************************************************************************
+ 
+Problem Statement: Given an array of strings, find the first palindrome and print the value, if no palindrome is present print an empty string.
+
+This solution is in C programming language.
+
+The C code has been achieved without any usage of built-in functions.
+ 
+*/
+
+
 #include<stdio.h>
 #include<stdbool.h>
 
+//Function to find palindrome and returns boolean value
 bool ispalindrome(char *word)
 {
     int len,i=0;
     char *str;
     bool pflag=0;
+	//Find the length of the string
     for(str=word; *str; ++str);
     len=str-word;
+	//If length is even
     if(len%2==0)
     {
-        while(word[i]==word[len-i-1] && i<(len-i-1))
+        //Iterate and verify if the values from both the ends are matching until midpoint is crossed
+		while(word[i]==word[len-i-1] && i<(len-i-1))
             i++;
+		
+		//if midpoint is crossed set flag 
         if(i>=(len-i-1))
             pflag=1;
     }
     else
     {
-        while(word[i]==word[len-i-1] && i!=(len-i-1) && i<(len-i-1))
+        //Iterate and verify if the values from both the ends are matching until midpoint is crossed
+		while(word[i]==word[len-i-1] && i!=(len-i-1) && i<(len-i-1))
             i++;
 
+		//if midpoint is reached set flag  
         if(i>=(len-i-1))
             pflag=1;
     }
-    return pflag;
+	return pflag;
 }
 
 char* firstPalindrome(char** words, int wordsSize) {
 
     int len=0, val=0, i;
+	char *empty="";
     for(i=0; i<wordsSize; i++)
     {
         val=ispalindrome(words[i]);
         if(val==1)
-            break;
+            return words[i]; //return the first palindrome element
     }
-    return words[i];
+	//retun empty string if elemnt is not identified
+    return empty; 
     
 }
 
 
 int main()
 {
-    char *strings[] = {"aaaha", "addaada", "addadda", "madam", "haha"};   
+    //string pointer array
+	char *strings[] = {"aaaha", "addaada", "addadda", "madam", "haha"};   
     
-    char **str=strings;
+    //double pointer pointing to the string pointer array
+	char **str=strings;
     
-    char *pal = firstPalindrome(str, 5);
+    //function call 
+	char *pal = firstPalindrome(str, 5);
     
-    printf("First Palindrome: %s \n", pal);
+    //result
+	printf("First Palindrome: %s \n", pal);
 }
+
+
+
