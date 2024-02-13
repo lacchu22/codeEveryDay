@@ -25,44 +25,29 @@ bool ispalindrome(char *word)
 	//Find the length of the string
     for(str=word; *str; ++str);
     len=str-word;
-	//If length is even
-    if(len%2==0)
-    {
-        //Iterate and verify if the values from both the ends are matching until midpoint is crossed
-		while(word[i]==word[len-i-1] && i<(len-i-1))
-            i++;
-		
-		//if midpoint is crossed set flag 
-        if(i>=(len-i-1))
-            pflag=1;
-    }
-    else
-    {
-        //Iterate and verify if the values from both the ends are matching until midpoint is crossed
-		while(word[i]==word[len-i-1] && i!=(len-i-1) && i<(len-i-1))
-            i++;
+  
+    //Iterate and verify if the values from both the ends are matching until midpoint is crossed
+	while(word[i]==word[len-i-1] && i!=(len-i-1) && i<(len-i-1))
+        i++;
 
-		//if midpoint is reached set flag  
-        if(i>=(len-i-1))
-            pflag=1;
-    }
+	//if midpoint is reached set flag  
+    if(i>=(len-i-1))
+        pflag=1;
 	return pflag;
 }
 
 char* firstPalindrome(char** words, int wordsSize) {
 
-    int len=0, val=0, i;
-	char *empty="";
-    for(i=0; i<wordsSize; i++)
+    for(int i=0; i<wordsSize; i++)
     {
-        val=ispalindrome(words[i]);
-        if(val==1)
-            return words[i]; //return the first palindrome element
+        if(ispalindrome(words[i]))
+            return words[i]; //return the first palindrome element of the array
     }
 	//retun empty string if elemnt is not identified
     return empty; 
     
 }
+
 
 
 int main()
